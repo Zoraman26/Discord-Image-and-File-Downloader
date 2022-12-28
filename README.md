@@ -7,7 +7,7 @@ This script allows you to download all files or a transcript of all messages in 
 - Python 3.8 or higher
 - The `discord` library (install with `pip install discord`)
 
-##Configuration
+## Configuration
 
 The config.json file should be in the following format:
 
