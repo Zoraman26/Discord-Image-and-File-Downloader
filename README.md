@@ -11,14 +11,13 @@ This script allows you to download all files or a transcript of all messages in 
 
 The config.json file should be in the following format:
 
-```{
+`{
   "allowed_filetypes": [
     "png",
     "jpg",
     "jpeg",
     "gif"
-    ]
-}```
+    ]}`
 
 The allowed_filetypes field is a list of file types that the script should download. The script will only download files with file types that are included in this list.
 
