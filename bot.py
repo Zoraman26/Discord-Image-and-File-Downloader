@@ -2,9 +2,20 @@ import argparse
 import discord
 import asyncio
 import os
+import re
+import  json
+import requests
 
 intents = discord.Intents.default()
 client = discord.Client(intents=intents)
+
+
+# Load the configuration from config.json
+with open("config.json", "r") as f:
+    config = json.load(f)
+
+# Get the list of file extensions from the config
+file_extensions = "|".join(config["allowed_filetypes"])
 
 async def download_files(channel_id):
     print('download_files function started')
@@ -17,29 +28,53 @@ async def download_files(channel_id):
 
     # Download all files from the channel
     for message in messages:
+        user = message.author
+        
         if message.attachments:
             attachment = message.attachments[0]
-            user = message.author
+            
+            # Check if the file type is allowed
+            file_type = attachment.filename.split(".")[-1]
+            if file_type in config["allowed_filetypes"]:
+                # Create a subfolder for the user if it doesn't already exist
+                user_folder = os.path.join("files", user.name)
+                if not os.path.exists(user_folder):
+                    os.makedirs(user_folder)
 
-            # Create a subfolder for the user if it doesn't already exist
+                # Construct the file path for the files
+                file_path = os.path.join(user_folder, attachment.filename)
+
+                print(f'Saving File {attachment.filename} from message {message.id} with content "{message.content}"')
+                # Download and save the files
+                await attachment.save(file_path)
+        else:
+            print(f'No attachments in message {message.id}"')
+        
+        # Find and print any links in the message that end in any file extension
+        pattern = re.compile(f'(https?://\S+\.({file_extensions}))')
+        matches = pattern.finditer(message.content)
+        for match in matches:
+            link = match.group()
+            print(f'Link {link} found in message {message.id}')
+            
+            # Download the link
+            response = requests.get(link)
+            file_name = link.split("/")[-1]
             user_folder = os.path.join("files", user.name)
             if not os.path.exists(user_folder):
                 os.makedirs(user_folder)
-
-            # Construct the file path for the files
-            file_path = os.path.join(user_folder, attachment.filename)
-
-            print(f'Saving File {attachment.filename} from message {message.id} with content "{message.content}"')
-            # Download and save the files
-            await attachment.save(file_path)
-        else:
-            print(f'No attachments in message {message.id} with content "{message.content}"')
-
+            file_path = os.path.join(user_folder, file_name)
+            
+            print(f'Saving File {file_name} from link {link}')
+            with open(file_path, "wb") as f:
+                f.write(response.content)
+        
         # Add a small delay to avoid overloading the Discord API
-    
         await asyncio.sleep(0.5)
 
     print('download_files function finished')
+
+
 
 
 
