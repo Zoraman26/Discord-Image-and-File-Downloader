@@ -47,7 +47,7 @@ When running in `transcript` mode, the script will create a text file named `tra
 
 ## Notes
 
-- The script Will only download both files that are directly attached to messages in the channel and any linked files.
+- The script will download both files that are directly attached to messages in the channel and any linked files.
 - The script may take a while to run, depending on the number of messages and files in the channel.
 - The script may use up a lot of bandwidth, depending on the size of the files being downloaded.
 - The script may use up a lot of disk space, depending on the number and size of the files being downloaded.
