@@ -104,10 +104,7 @@ async def download_transcript(channel_id):
 
 
 
-@client.event
-async def on_ready():
-    await download_files(args.channel_id)
-    print(args.channel_id)
+
 @client.event
 async def on_ready():
     if args.mode == 'files':

@@ -5,7 +5,7 @@ This script allows you to download all files or a transcript of all messages in 
 ## Requirements
 
 - Python 3.8 or higher
-- The `discord` library (install with `pip install discord`)
+- The `discord` and `requests` libraries (install with `pip install discord requests`)
 
 ## Configuration
 
@@ -52,7 +52,7 @@ When running in `transcript` mode, the script will create a text file named `tra
 - The script may use up a lot of bandwidth, depending on the size of the files being downloaded.
 - The script may use up a lot of disk space, depending on the number and size of the files being downloaded.
 
-##Limitations
+## Limitations
 
 - The script does not download any messages that have been deleted or retrieve the original content of messages that have been edited.
 - The script does not download any messages from private channels or direct messages.
