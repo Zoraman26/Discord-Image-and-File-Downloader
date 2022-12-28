@@ -39,6 +39,6 @@ When running in `transcript` mode, the script will create a text file named `tra
 ##Limitations
 
 - The script can only download files that are directly attached to messages in the channel. files that are linked but not attached will not be downloaded.
-- The script does not download any messages that have been deleted or edited.
+- The script does not download any messages that have been deleted or retrieve the original content of messages that have been edited.
 - The script does not download any messages from private channels or direct messages.
 - The script does not download any messages from channels that the bot does not have access to.

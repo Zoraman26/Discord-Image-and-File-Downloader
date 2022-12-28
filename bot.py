@@ -26,11 +26,11 @@ async def download_files(channel_id):
             if not os.path.exists(user_folder):
                 os.makedirs(user_folder)
 
-            # Construct the file path for the image
+            # Construct the file path for the files
             file_path = os.path.join(user_folder, attachment.filename)
 
-            print(f'Saving image {attachment.filename} from message {message.id} with content "{message.content}"')
-            # Download and save the image
+            print(f'Saving File {attachment.filename} from message {message.id} with content "{message.content}"')
+            # Download and save the files
             await attachment.save(file_path)
         else:
             print(f'No attachments in message {message.id} with content "{message.content}"')
